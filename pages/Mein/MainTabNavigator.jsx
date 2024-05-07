@@ -67,7 +67,7 @@ const MainTabNavigator = () => {
                     tabBarInactiveTintColor: "#5FBDFF",
                     tabBarLabelStyle: { display: "none" },
                     tabBarStyle: {
-                        borderRadius: 50,
+                        // borderRadius: 50,
                         position: 'absolute',
                         bottom: 10,
                         left: 20.5,
