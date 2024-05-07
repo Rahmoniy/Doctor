@@ -1,5 +1,5 @@
 {
-  "name": "SOFF_marketplace",
+  "name": "DOCTOR",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.18.1",
+    "@react-native-community/checkbox": "^0.5.17",
+    "@react-native-community/datetimepicker": "^8.0.0",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",
@@ -25,17 +27,21 @@
     "react": "18.2.0",
     "react-i18next": "^13.0.1",
     "react-native": "0.71.7",
+    "react-native-biometrics": "^3.0.1",
     "react-native-collapsible": "^1.6.1",
     "react-native-date-picker": "^4.3.3",
+    "react-native-dialog": "^9.3.0",
     "react-native-gesture-handler": "^2.10.0",
     "react-native-image-picker": "^5.6.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal": "^13.0.1",
     "react-native-raw-bottom-sheet": "^2.2.0",
+    "react-native-rename": "^3.2.14",
     "react-native-safe-area-context": "^4.5.1",
     "react-native-screens": "^3.20.0",
     "react-native-select-dropdown": "^3.4.0",
     "react-native-svg": "^13.9.0",
+    "react-native-vector-icons": "^10.1.0",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2"
