@@ -21,7 +21,7 @@ const ALongTime = () => {
             <Text style={styles.aLongTime_text}>Uchrashuv Bergilangan vaqt</Text>
             <ScrollView>
                 {
-                    dataMeeting.length > 0 ?
+                    dataMeeting?.length > 0 ?
                         <>
                             {
                                 dataMeeting.map((item, index) => {

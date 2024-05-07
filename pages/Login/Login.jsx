@@ -94,7 +94,10 @@ const Login = ({ navigation }) => {
                     <TouchableOpacity
                         style={styles.login_all_Button}
                         activeOpacity={0.7}
-                        onPress={handleLogin}
+                        onPress={() => {
+                            navigation.navigate('Main');
+                            // handleLogin()
+                        }}
                         disabled={isLoading}
                     >
                         {isLoading ? (
