@@ -12,6 +12,7 @@ import Registration from './pages/Registration/Registration';
 import DrInformation from './components/Dr. information/DrInformation';
 import store from './redux/store';
 import HospitalFilter from './components/HospitalFilter/HospitalFilter';
+import HospitalInformation from "./components/HospitalInformation/HospitalInformation";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const App = () => {
             <Stack.Screen name="Main" component={MainTabNavigator} />
             <Stack.Screen name="DrInformation" component={DrInformation} />
             <Stack.Screen name="HospitalFilter" component={HospitalFilter} />
+            <Stack.Screen name="HospitalInformation" component={HospitalInformation} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider >

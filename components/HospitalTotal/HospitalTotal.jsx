@@ -61,7 +61,7 @@ const HospitalTotal = () => {
                                 <View style={styles.hospitalTotal_card_right}>
                                     <Text style={styles.hospitalTotal_card_right_doctorName}>37-Oilaviy Polklinika</Text>
                                     <Text style={styles.hospitalTotal_card_right_doctorInfo}>Ташкент, Чиланзарский район, 1-й пр. Катартал, 1</Text>
-                                    <TouchableOpacity style={styles.hospitalTotal_card_right_button} onPress={() => { handleButtonClick() }}>
+                                    <TouchableOpacity style={styles.hospitalTotal_card_right_button} onPress={() => { navigation.navigate('HospitalInformation') }}>
                                         <Text style={styles.hospitalTotal_card_right_buttonText}>Toliq Malumot</Text>
                                     </TouchableOpacity>
                                     <View style={styles.hospitalTotal_card_right_star}>
