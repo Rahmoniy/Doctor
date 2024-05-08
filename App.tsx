@@ -12,7 +12,7 @@ import Registration from './pages/Registration/Registration';
 import DrInformation from './components/Dr. information/DrInformation';
 import store from './redux/store';
 import HospitalFilter from './components/HospitalFilter/HospitalFilter';
-import HospitalInformation from "./components/HospitalInformation/HospitalInformation";
+import HospitalInformation from './components/HospitalInformation/HospitalInformation';
 
 const Stack = createNativeStackNavigator();
 

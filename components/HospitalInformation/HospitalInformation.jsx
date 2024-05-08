@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, Linking } from 'react-native';
-// import { WebView } from 'react-native-webview';
 import DoctorReviews from '../DoctorReviews/DoctorReviews';
+import HospitalTotalApi from '../../Api/HospitalTotal'
 
-const HospitalInformation = () => {
+const HospitalInformation = (props) => {
     const [showMore, setShowMore] = useState(false);
+    const [data, setData] = useState();
+    const { route } = props;
+    const { id } = route.params;
 
-    const textIndoHospital = 'OILAVIY POLIKLINIKA №37 (CHILONZOR TUMANI) qaerda joylashgan? OILAVIY POLIKLINIKA №37(CHILONZOR TUMANI) shu manzilda joylashgan: O`zbekiston, 100013, TOSHKENT, CHILONZOR tumani, 1 - chi KATORTOL tor ko`chasi, 1..OILAVIY POLIKLINIKA №37(CHILONZOR TUMANI) qanday borish mumkin ? Marshrutni yaratish uchun siz bizning veb - saytimizdagi xaritadan foydalanishingiz mumkin.OILAVIY POLIKLINIKA №37(CHILONZOR TUMANI) telefon raqamlari ? OILAVIY POLIKLINIKA №37(CHILONZOR TUMANI) ga siz shu raqamlar orqali qo’ng’iroq qilishingiz mumkin'
+    useEffect(() => {
+        HospitalTotalApi.getHospitalById(id)
+            .then(res => {
+                setData(res)
+            })
 
-    const shortReview = `${textIndoHospital.substring(0, 100)}...`;
-    const longReview = textIndoHospital;
+    }, []);
+
+    const shortReview = `${data && data.info.substring(0, 100)}...`;
+    const longReview = data && data.info;
 
     const handleShowMore = () => {
         setShowMore(!showMore);
@@ -21,12 +30,12 @@ const HospitalInformation = () => {
                 <Text style={styles.title}>Toliq Malumot</Text>
                 <View style={styles.card}>
                     <View style={styles.cardImg}>
-                        <Image style={{ width: 280, height: 180 }} source={require("../../assets/hospital.png")} />
+                        <Image style={{ width: 280, height: 180 }} source={data ? { uri: data.img } : require("../../assets/hospital.png")} />
                     </View>
-                    <Text style={styles.cardImgText}>37-Oilaviy Polklinika</Text>
+                    <Text style={styles.cardImgText}>{data && data.name}</Text>
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.infoText}>Polklinika haqida</Text>
+                    <Text style={styles.infoText}>{data && data.category} haqida</Text>
                     <Text style={styles.infoTextInfo}> {showMore ? longReview : shortReview}</Text>
                     <TouchableOpacity onPress={handleShowMore}>
                         <Text style={{ color: "black" }}>
@@ -34,19 +43,15 @@ const HospitalInformation = () => {
                         </Text>
                     </TouchableOpacity>
                     <Text style={styles.infoText}>Manzil</Text>
-                    <Text style={styles.infoTextInfo}>37-sonli oilaviy poliklinika, Chilonzor tumani, Kattalar poliklinikasi, 1-p.</Text>
-                    {/*<WebView*/}
-                    {/*    source={{ uri: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.734895984081!2d66.96300297581553!3d38.99854637170264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f4c9f84d1609be5%3A0x70b63ecc7179c676!2s37-%20OILAVIY%20POLIKLINIKA!5e0!3m2!1sru!2s!4v1715079327264!5m2!1sru!2s' }}*/}
-                    {/*    style={styles.map}*/}
-                    {/*/>*/}
-                    <Text style={styles.infoText}>Doktorning telefon raqami</Text>
-                    <TouchableOpacity onPress={() => Linking.openURL(`tel:+998 90 999 99 99`)}>
-                        <Text style={styles.infoTextInfo}>+998 90 999 99 99</Text>
+                    <Text style={styles.infoTextInfo}>{data && data.maplockation}</Text>
+                    <Text style={styles.infoText}>{data && data.category} telefon raqami</Text>
+                    <TouchableOpacity onPress={() => Linking.openURL(`tel:${data && data.callnumber}`)}>
+                        <Text style={styles.infoTextInfo}>{data && data.callnumber}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.comment}>
                     <View style={styles.commentHeaderTexts}>
-                        <Text style={styles.commentHeaderTextsText}>18+ ta sharh</Text>
+                        <Text style={styles.commentHeaderTextsText}>3+ ta sharh</Text>
                         <Text style={styles.commentHeaderTextsTextAll}>barcha</Text>
                     </View>
                 </View>

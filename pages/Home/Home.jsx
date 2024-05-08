@@ -33,6 +33,14 @@ const Home = () => {
     const handleSearchChange = (text) => {
         setSearchText(text);
         setShowClearIcon(text.length > 0); // Show clear icon if text length is greater than 0
+        CardDoctorApi.getCardDoctor()
+          .then(res => {
+              let filteredData = res.filter(item => item.name.toLowerCase().includes(text.toLowerCase()) && ["Pediatrlar", "Nefrolog", "Pulmonolog", "Endokrinolog"].includes(item.yolanish) && item.BooleanDoctor === true);
+              setData(filteredData);
+          })
+          .catch(error => {
+              console.error('Error fetching hospital data: ', error);
+          });
     };
 
     const handleClearText = () => {
@@ -55,7 +63,7 @@ const Home = () => {
     return (
         <View style={styles.HomeScreen}>
             <Animated.View style={[styles.header, {
-                height: scrollY > 2 ? 120 : 310
+                height: scrollY > 2 ? 140 : 310
             }]}>
                 <View style={styles.container}>
                     <View style={{ ...styles.header_user, zIndex: 1 }}>
@@ -70,7 +78,7 @@ const Home = () => {
                             />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ ...styles.header_textvsinput, marginTop: scrollY > 0 ? -150 : 10 }}>
+                    <View style={{ ...styles.header_textvsinput, marginTop: scrollY > 0 ? -160 : 10 }}>
                         <View style={{ zIndex: -1 }}>
                             <Text style={styles.header_textvsinput_text}>Qaytib kelganingizdan xursandmiz</Text>
                             <Text style={styles.header_textvsinput_title}>Topamiz {"\n"}Sizning eng yaxshi Shifokoringiz!</Text>
@@ -78,11 +86,11 @@ const Home = () => {
                         <View style={styles.header_textvsinput_search}>
                             <Image source={require('../../assets/search_icon.png')} style={styles.header_textvsinput_search_searchIcon} />
                             <TextInput
-                                style={styles.header_textvsinput_search_searchInput}
-                                placeholder="Search..."
-                                placeholderTextColor="black"
-                                onChangeText={handleSearchChange}
-                                value={searchText}
+                              style={styles.header_textvsinput_search_searchInput}
+                              placeholder="Qidiruv..."
+                              placeholderTextColor="black"
+                              onChangeText={handleSearchChange}
+                              value={searchText}
                             />
                             {showClearIcon && ( // Conditionally render clear icon
                                 <TouchableOpacity onPress={handleClearText}>
@@ -97,11 +105,12 @@ const Home = () => {
                     </View>
                 </View>
             </Animated.View>
-            <View style={{ ...styles.body, height: scrollY > 2 ? '72%' : '49%' }}>
+            {/*<View style={{ ...styles.body, height: scrollY > 2 ? '72%' : '49%' }}>*/}
                 <ScrollView
                     ref={scrollViewRef}
                     onScroll={handleScroll}
                     scrollEventThrottle={16}
+                    contentContainerStyle={{paddingBottom: 200,}}
                 >
                     <View style={styles.container}>
                         <Text style={styles.body_text}>Kategoriyalar</Text>
@@ -140,7 +149,7 @@ const Home = () => {
                         ))}
                     </View>
                 </ScrollView>
-            </View>
+            {/*</View>*/}
         </View>
     );
 };
@@ -206,8 +215,8 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     header_textvsinput_search_searchIcon: {
-        width: 30,
-        height: 30,
+        width: 20,
+        height: 20,
         marginRight: 15,
     },
     header_textvsinput_search_searchInput: {

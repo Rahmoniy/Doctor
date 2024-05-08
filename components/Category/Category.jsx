@@ -140,7 +140,7 @@ const Category = () => {
                                 ))}
                             </>
                             :
-                            <View><Text style={{ textAlign: "center", fontSize: 22, color: "red" }}>Malumot yoq</Text></View>
+                            <View><Text style={{ textAlign: "center", fontSize: 22, color: "blue" }}>Malumot yoq</Text></View>
                     }
                 </ScrollView>
             </View>

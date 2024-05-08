@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View, StyleSheet, Image, TextInput } from 'react-native';
+import { ScrollView, Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import CardDoctor from '../CardDoctor/CardDoctor';
 import CardDoctorApi from '../../Api/CardDoctor';
 
@@ -8,17 +8,6 @@ const TopDoctors = () => {
     const [searchText, setSearchText] = useState('');
     const [showClearIcon, setShowClearIcon] = useState(false);
     const [data, setData] = useState([]);
-
-
-    const handleSearchChange = (text) => {
-        setSearchText(text);
-        setShowClearIcon(text.length > 0); // Show clear icon if text length is greater than 0
-    };
-
-    const handleClearText = () => {
-        setSearchText('');
-        setShowClearIcon(false); // Hide clear icon after clearing text
-    };
 
     useEffect(() => {
 
@@ -31,6 +20,25 @@ const TopDoctors = () => {
                 console.error("Error fetching data: ", error);
             });
     }, []);
+    const handleSearchChange = (text) => {
+        setSearchText(text);
+        setShowClearIcon(text); // Show clear icon if text length is greater than 0
+        CardDoctorApi.getCardDoctor()
+            .then(res => {
+                let filteredData = res.filter(item => item.name.toLowerCase().includes(text.toLowerCase()) && item.level >= 4.8);
+                setData(filteredData);
+            })
+            .catch(error => {
+                console.error('Error fetching hospital data: ', error);
+            });
+    };
+
+    const handleClearText = () => {
+        setSearchText('');
+        setShowClearIcon(false); // Hide clear icon after clearing text
+    };
+
+
 
     return (
         <View style={styles.TopDoctors}>
@@ -42,7 +50,7 @@ const TopDoctors = () => {
                         style={styles.header_textvsinput_search_searchInput}
                         placeholder="Search..."
                         placeholderTextColor="black"
-                        onChangeText={handleSearchChange}
+                        onChangeText={(val) => { handleSearchChange(val) }}
                         value={searchText}
                     />
                     {showClearIcon && ( // Conditionally render clear icon

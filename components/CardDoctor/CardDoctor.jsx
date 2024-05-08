@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { get } from "lodash";
 
 const CardDoctor = (props) => {
     // const [boolean, setBoolean] = useState(true);
@@ -23,7 +22,7 @@ const CardDoctor = (props) => {
 
     const handleButtonClick = (params) => {
         // console.log(params);
-        navigation.navigate('DrInformation', { id: params ? params : '' });
+        navigation.navigate('DrInformation', { id: params });
     };
 
 
@@ -34,7 +33,7 @@ const CardDoctor = (props) => {
                 <View style={styles.CardDoctor_left}>
                     <View style={styles.CardDoctor_left_imguser}>
                         <Image style={{ width: 65, height: 65, borderRadius: 50 }} source={prosp ? { uri: prosp.img } : require("../../assets/Drimg.png")} />
-                        <Dot focused={prosp && get(prosp, 'BooleanDoctor', '')} />
+                        <Dot focused={prosp && prosp.BooleanDoctor} />
                     </View>
                     <View style={styles.CardDoctor_left_star}>
                         <Image style={{ width: 20, height: 20 }} source={require('../../assets/Star.png')} />

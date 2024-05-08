@@ -1,30 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import HospitalTotalApi from '../../Api/HospitalTotal'
 
 
 
 const HospitalTotal = () => {
     const [showClearIcon, setShowClearIcon] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [data, setData] = useState([])
     const navigation = useNavigation()
 
+    useEffect(() => {
+        HospitalTotalApi.getHospitalTotal()
+            .then(res => {
+                setData(res)
+            })
+    }, []);
     // getting value from redux state
     const handleButtonClick = () => {
 
-    };
+    }
     const handleSearchChange = (text) => {
         setSearchText(text);
-        setShowClearIcon(text.length > 0);;
+        setShowClearIcon(text);;
+        HospitalTotalApi.getHospitalTotal()
+            .then(res => {
+                let filteredData = res.filter(item => item.name.toLowerCase().includes(text.toLowerCase()));
+                setData(filteredData);
+            })
+            .catch(error => {
+                console.error('Error fetching hospital data: ', error);
+            });
     };
     const resetFilter = () => {
         setSearchText('');
         setShowClearIcon(false);
     };
+    const HospitalInfo = () => {
+
+    }
 
     return (
         <View style={styles.hospitalTotal}>
-            <Text style={styles.hospitalTotal_title}>Kilinika va Polklinika hamda Tibbiyot Malumotlar</Text>
+            <Text style={styles.hospitalTotal_title}>Kilinika va Polklinika hamda Tibiyot birlashmasi Malumotlari</Text>
             <View style={styles.hospitalTotal_textvsinput_search}>
                 <Image source={require('../../assets/search_icon.png')} style={styles.hospitalTotal_textvsinput_search_searchIcon} />
                 <TextInput
@@ -51,29 +70,37 @@ const HospitalTotal = () => {
                     style={{ width: 40, height: 20 }}
                 />
             </TouchableOpacity>
-            <ScrollView
-                style={styles.hospitalTotal_scrollView}>
-                {
-                    [0, 1, 2, 3, 4, 5].map((res, i) => {
-                        return (
-                            <View key={i} style={styles.hospitalTotal_card}>
-                                <Image style={{ width: 90, height: 90 }} source={require("../../assets/hospital.png")} />
-                                <View style={styles.hospitalTotal_card_right}>
-                                    <Text style={styles.hospitalTotal_card_right_doctorName}>37-Oilaviy Polklinika</Text>
-                                    <Text style={styles.hospitalTotal_card_right_doctorInfo}>Ташкент, Чиланзарский район, 1-й пр. Катартал, 1</Text>
-                                    <TouchableOpacity style={styles.hospitalTotal_card_right_button} onPress={() => { navigation.navigate('HospitalInformation') }}>
-                                        <Text style={styles.hospitalTotal_card_right_buttonText}>Toliq Malumot</Text>
-                                    </TouchableOpacity>
-                                    <View style={styles.hospitalTotal_card_right_star}>
-                                        <Image style={{ width: 20, height: 20 }} source={require('../../assets/Star.png')} />
-                                        <Text style={styles.ratingText}>4.8</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        )
-                    })
-                }
-            </ScrollView>
+            <View style={styles.hospitalTotal_scrollView}>
+                <ScrollView >
+                    {
+                        data.length > 0 ?
+                            <>
+                                {
+                                    data.map((res, i) => {
+                                        return (
+                                            <View key={i} style={styles.hospitalTotal_card}>
+                                                <Image style={{ width: 90, height: 90 }} source={{ uri: res.img }} />
+                                                <View style={styles.hospitalTotal_card_right}>
+                                                    <Text style={styles.hospitalTotal_card_right_doctorName}>{res.name}</Text>
+                                                    <Text style={styles.hospitalTotal_card_right_doctorInfo}>{res.maplockation}</Text>
+                                                    <TouchableOpacity style={styles.hospitalTotal_card_right_button} onPress={() => { HospitalInfo(navigation.navigate('HospitalInformation', { id: res.id })) }}>
+                                                        <Text style={styles.hospitalTotal_card_right_buttonText}>Toliq Malumot</Text>
+                                                    </TouchableOpacity>
+                                                    <View style={styles.hospitalTotal_card_right_star}>
+                                                        <Image style={{ width: 20, height: 20 }} source={require('../../assets/Star.png')} />
+                                                        <Text style={styles.ratingText}>{res.reting}</Text>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        )
+                                    })
+                                }
+                            </>
+                            :
+                            <><Text>loading...</Text></>
+                    }
+                </ScrollView>
+            </View>
         </View>
     );
 };
@@ -83,6 +110,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: "center",
+        paddingTop: 10
 
     },
     hospitalTotal_title: {
@@ -137,7 +165,7 @@ const styles = StyleSheet.create({
         color: "rgba(38, 50, 87, 1)"
     },
     hospitalTotal_scrollView: {
-        height: "76%"
+        height: "65%"
     },
     hospitalTotal_card: {
         height: 133,
@@ -223,3 +251,5 @@ const styles = StyleSheet.create({
 });
 
 export default HospitalTotal;
+
+

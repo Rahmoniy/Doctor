@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import CardDoctorApi from '../../Api/CardDoctor';
 import { useSelector } from 'react-redux';
 import Auth from '../../Api/Auth';
-import { get } from "lodash";
 
 
 
@@ -74,9 +73,9 @@ const DrInformation = (props) => {
 
     const handleSave = () => {
         const dataMeeting = {
-            img: get(data, 'img'),
-            name: get(data, 'name', ''),
-            yolanish: get(data, 'yolanish', ''),
+            img: data.img,
+            name: data.name,
+            yolanish: data.yolanish,
             table: table,
             visitHour: visitHour
         }
@@ -94,7 +93,7 @@ const DrInformation = (props) => {
 
     function workingApi() {
         // Jadvallar array'inde belirli bir id'ye sahip öğeyi güncelle
-        const updatedJadvallar = get(dataWeekChange, 'Jadvallar', []).map(outerRes => {
+        const updatedJadvallar = dataWeekChange.Jadvallar.map(outerRes => {
             if (outerRes.id === table.id) {
                 // Tashrif dizisindeki tüm öğelerin booleanVisitingHours değerlerini kontrol et
                 const allVisitingHoursTrue = outerRes.Tashrif.every(innerRes => innerRes.booleanVisitingHours);
@@ -134,8 +133,8 @@ const DrInformation = (props) => {
 
 
 
-    const shortReview = `${data && get(data, 'drinfo', '').substring(0, 100)}...`;
-    const longReview = data && get(data, 'drinfo', '');
+    const shortReview = `${data && data.drinfo.substring(0, 100)}...`;
+    const longReview = data && data.drinfo;
 
     return (
         <ScrollView>
@@ -143,27 +142,27 @@ const DrInformation = (props) => {
                 <Text style={styles.drInformation_title}>Uchrashuv</Text>
                 <View style={styles.drInformation_cardimg}>
                     <View style={styles.drInformation_cardimg_imguser}>
-                        <Image style={{ width: 90, height: 110, borderRadius: 30 }} source={data ? { uri: get(data, 'img', null) } : require("../../assets/Drimg.png")} />
+                        <Image style={{ width: 90, height: 110, borderRadius: 30 }} source={data ? { uri: data.img } : require("../../assets/Drimg.png")} />
                         <Dot focused={boolean} />
                     </View>
-                    <Text style={styles.drInformation_cardimg_textuser}>{data ? get(data, 'name', '') : 'Doctor Ism'}</Text>
+                    <Text style={styles.drInformation_cardimg_textuser}>{data ? data.name : 'Doctor Ism'}</Text>
                     <View style={styles.drInformation_cardimg_category}>
-                        <Image style={{ width: 15, height: 15 }} source={require('../../assets/Cardiology.png')} />
-                        <Text style={styles.drInformation_cardimg_category_text}> {data ? get(data, 'yolanish', '') : 'yolanish'}</Text>
+                        {/* <Image style={{ width: 15, height: 15 }} source={require('../../assets/Cardiology.png')} /> */}
+                        <Text style={styles.drInformation_cardimg_category_text}> {data ? data.yolanish : 'yolanish'}</Text>
                     </View>
                 </View>
                 <View style={styles.constainer}>
                     <View style={styles.drInformation_cardExperienceInfo}>
                         <View style={styles.drInformation_cardExperienceInfo_patients}>
-                            <Text style={styles.drInformation_cardExperienceInfo_patients_testNumber}>{data && get(data, 'Bemorlar')}+</Text>
+                            <Text style={styles.drInformation_cardExperienceInfo_patients_testNumber}>{data && data.Bemorlar}+</Text>
                             <Text style={styles.drInformation_cardExperienceInfo_patients_test}>Bemorlar</Text>
                         </View>
                         <View style={styles.drInformation_cardExperienceInfo_patients}>
-                            <Text style={{ ...styles.drInformation_cardExperienceInfo_patients_testNumber, color: 'rgba(95, 189, 255, 1)' }}>{data && get(data, 'Tajribam', '')}+</Text>
+                            <Text style={{ ...styles.drInformation_cardExperienceInfo_patients_testNumber, color: 'rgba(95, 189, 255, 1)' }}>{data && data.Tajribam}+</Text>
                             <Text style={styles.drInformation_cardExperienceInfo_patients_test}>Tajribam</Text>
                         </View>
                         <View style={styles.drInformation_cardExperienceInfo_patients}>
-                            <Text style={{ ...styles.drInformation_cardExperienceInfo_patients_testNumber, color: "rgba(255, 154, 154, 1)" }}>{data && get(data, 'Baholashlar', '')}+</Text>
+                            <Text style={{ ...styles.drInformation_cardExperienceInfo_patients_testNumber, color: "rgba(255, 154, 154, 1)" }}>{data && data.Baholashlar}+</Text>
                             <Text style={styles.drInformation_cardExperienceInfo_patients_test}>Baholashlar</Text>
                         </View>
                     </View>
@@ -176,17 +175,17 @@ const DrInformation = (props) => {
                             </Text>
                         </TouchableOpacity>
                         <Text style={{ ...styles.drInformation_Info_text, marginTop: 10 }}>Manzil</Text>
-                        <Text style={styles.drInformation_Info_textInfo}>{data && get(data, 'Address', '')}</Text>
+                        <Text style={styles.drInformation_Info_textInfo}>{data && data.Address}</Text>
                         <Text style={{ ...styles.drInformation_Info_text, marginTop: 10 }}>Doktorning telefon raqami</Text>
-                        <TouchableOpacity onPress={() => Linking.openURL(`tel:${get(data, 'Number')}`)}>
-                            <Text style={{ ...styles.drInformation_Info_textInfo, color: "blue", textDecorationLine: "underline" }}>{data && get(data, 'Number')}</Text>
+                        <TouchableOpacity onPress={() => Linking.openURL(`tel:${data && data.Number}`)}>
+                            <Text style={{ ...styles.drInformation_Info_textInfo, color: "blue", textDecorationLine: "underline" }}>{data && data.Number}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.drInformation_comment}>
                     <View style={styles.constainer}>
                         <View style={styles.drInformation_comment_headertexts}>
-                            <Text style={styles.drInformation_comment_headertexts_text}>{data && get(data, 'Baholashlar', '')} ta sharh</Text>
+                            <Text style={styles.drInformation_comment_headertexts_text}>{data && data.Baholashlar} ta sharh</Text>
                             <Text style={styles.drInformation_comment_headertexts_textAll}>barcha</Text>
                         </View>
                     </View>
@@ -203,7 +202,7 @@ const DrInformation = (props) => {
                             <Text style={styles.drInformation_giveDay_headertexts_textAll}>may</Text>
                         </View>
                         <ScrollView style={{ width: "100%", flexDirection: 'row', marginTop: 10 }} horizontal={true}>
-                            {data && get(data, 'Jadvallar', []).map((item, i) => (
+                            {data && data.Jadvallar.map((item, i) => (
                                 item.bolleanWeek ?
                                     <TouchableOpacity key={i} >
                                         <View style={[styles.drInformation_giveDay_Day, { borderColor: "#F7F8F8" }]}>
@@ -226,7 +225,7 @@ const DrInformation = (props) => {
                     <View style={styles.constainer}>
                         <Text style={styles.VisitingHours_headertext}>Tashrif soati</Text>
                         <View style={styles.VisitingHours_hours}>
-                            {dataTime?.length > 0 ?
+                            {dataTime.length > 0 ?
                                 <>
                                     {dataTime.map((item, hour) => ( // Burada dataTime'ı map ediyorum
                                         item.booleanVisitingHours ?
