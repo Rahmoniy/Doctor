@@ -51,7 +51,7 @@ const HospitalInformation = (props) => {
                 </View>
                 <View style={styles.comment}>
                     <View style={styles.commentHeaderTexts}>
-                        <Text style={styles.commentHeaderTextsText}>3+ ta sharh</Text>
+                        <Text style={styles.commentHeaderTextsText}>3 ta sharh</Text>
                         <Text style={styles.commentHeaderTextsTextAll}>barcha</Text>
                     </View>
                 </View>
