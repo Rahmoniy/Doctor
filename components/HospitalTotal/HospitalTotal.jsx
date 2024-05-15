@@ -5,18 +5,35 @@ import HospitalTotalApi from '../../Api/HospitalTotal'
 
 
 
-const HospitalTotal = () => {
+const HospitalTotal = (props) => {
     const [showClearIcon, setShowClearIcon] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [data, setData] = useState([])
     const navigation = useNavigation()
-
+    const { route } = props;
+    console.log(route.params);
     useEffect(() => {
-        HospitalTotalApi.getHospitalTotal()
-            .then(res => {
-                setData(res)
-            })
-    }, []);
+        if (route.params) {
+            HospitalTotalApi.getHospitalTotal()
+                .then(res => {
+                    let data = res.find(item => item.city === route.params.city && item.district === route.params.district && item.category === route.params.selected);
+                    console.log("===>", data);
+                    setData(data ? [data] : []); // Agar ma'lumot topilgan bo'lsa, uni massivning birinchi elementi sifatida o'rnating, aks holda bo'sh massiv qo'yish
+                })
+                .catch(error => {
+                    console.error('Error fetching hospital data: ', error);
+                });
+        } else {
+            HospitalTotalApi.getHospitalTotal()
+                .then(res => {
+                    setData(res);
+                })
+                .catch(error => {
+                    console.error('Error fetching hospital data: ', error);
+                });
+        }
+    }, [route.params]);
+
     // getting value from redux state
     const handleButtonClick = () => {
 
@@ -81,8 +98,8 @@ const HospitalTotal = () => {
                                             <View key={i} style={styles.hospitalTotal_card}>
                                                 <Image style={{ width: 90, height: 90 }} source={{ uri: res.img }} />
                                                 <View style={styles.hospitalTotal_card_right}>
-                                                    <Text style={styles.hospitalTotal_card_right_doctorName}>{res.name}</Text>
-                                                    <Text style={styles.hospitalTotal_card_right_doctorInfo}>{res.maplockation}</Text>
+                                                    <Text style={styles.hospitalTotal_card_right_salara_1Name}>{res.name}</Text>
+                                                    <Text style={styles.hospitalTotal_card_right_salara_1Info}>{res.maplockation}</Text>
                                                     <TouchableOpacity style={styles.hospitalTotal_card_right_button} onPress={() => { HospitalInfo(navigation.navigate('HospitalInformation', { id: res.id })) }}>
                                                         <Text style={styles.hospitalTotal_card_right_buttonText}>Toliq Malumot</Text>
                                                     </TouchableOpacity>
@@ -195,7 +212,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         position: "relative"
     },
-    hospitalTotal_card_right_doctorName: {
+    hospitalTotal_card_right_salara_1Name: {
         fontFamily: 'Poppins',
         fontSize: 18,
         fontWeight: '500',
@@ -203,7 +220,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: "rgba(8, 12, 47, 0.65)"
     },
-    hospitalTotal_card_right_doctorInfo: {
+    hospitalTotal_card_right_salara_1Info: {
         fontFamily: 'Poppins',
         fontSize: 15,
         fontWeight: '500',

@@ -44,7 +44,7 @@ const HospitalFilter = () => {
                 selectedValue = "Poliklinika";
                 break;
         }
-        navigation.navigate("HospitalTotalsScreen", state = { city: selectedCity, district: selectedDistrict, selected: selectedValue });
+        navigation.navigate("HospitalTotalsScreen", { city: selectedCity, district: selectedDistrict, selected: selectedValue });
     }
 
 
@@ -79,11 +79,44 @@ const HospitalFilter = () => {
                 </TouchableOpacity>
                 {showCityList && (
                     <View style={styles.cityList}>
-                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Toshkent')}>
-                            <Text style={styles.cityListItem}>Toshkent</Text>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Toshkent sh')}>
+                            <Text style={styles.cityListItem}>Toshkent sh</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Buxoro')}>
-                            <Text style={styles.cityListItem}>Buxoro</Text>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Toshkent v')}>
+                            <Text style={styles.cityListItem}>Toshkent v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Samarqand v')}>
+                            <Text style={styles.cityListItem}>Samarqand v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Qashqadaryo v')}>
+                            <Text style={styles.cityListItem}>Qashqadaryo v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Andijon v')}>
+                            <Text style={styles.cityListItem}>Andijon v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Buxoro v')}>
+                            <Text style={styles.cityListItem}>Buxoro v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Fargʻona v')}>
+                            <Text style={styles.cityListItem}>Fargʻona  v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Jizzax v')}>
+                            <Text style={styles.cityListItem}>Jizzax  v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Xorazm v')}>
+                            <Text style={styles.cityListItem}>Xorazm  v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Namangan v')}>
+                            <Text style={styles.cityListItem}>Namangan  v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Navoiy v')}>
+                            <Text style={styles.cityListItem}>Navoiy v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Sirdaryo v')}>
+                            <Text style={styles.cityListItem}>Sirdaryo v</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleCitySelection('Surxondaryo v')}>
+                            <Text style={styles.cityListItem}>Surxondaryo v</Text>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -95,13 +128,30 @@ const HospitalFilter = () => {
                 </TouchableOpacity>
                 {showDistrictList && (
                     <View style={styles.cityList}>
-                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Yakkasaroy')}>
-                            <Text style={styles.cityListItem}>Yakkasaroy</Text>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Shayxontohur tumani')}>
+                            <Text style={styles.cityListItem}>Shayxontohur tumani</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Mirzo Ulugbek')}>
-                            <Text style={styles.cityListItem}>Mirzo Ulugbek</Text>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Mirzo Ulugʻbek tumani')}>
+                            <Text style={styles.cityListItem}>Mirzo Ulugʻbek tumani</Text>
                         </TouchableOpacity>
-                        {/* Diğer ilçeler buraya eklenebilir */}
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Bektemir tumani')}>
+                            <Text style={styles.cityListItem}>Bektemir tumani</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Mirobod tumani')}>
+                            <Text style={styles.cityListItem}>Mirobod tumani</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Sergeli tumani')}>
+                            <Text style={styles.cityListItem}>Sergeli tumani</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Olmazor tumani')}>
+                            <Text style={styles.cityListItem}>Olmazor tumani</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Chilonzor tumani')}>
+                            <Text style={styles.cityListItem}>Chilonzor tumani</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cityListItem} onPress={() => handleDistrictSelection('Yunusobod tumani')}>
+                            <Text style={styles.cityListItem}>Yunusobod tumani</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
             </View>
