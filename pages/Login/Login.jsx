@@ -95,8 +95,8 @@ const Login = ({ navigation }) => {
                         style={styles.login_all_Button}
                         activeOpacity={0.7}
                         onPress={() => {
-                            // handleLogin()
-                            navigation.navigate('Main');
+                            handleLogin()
+                            // navigation.navigate('Main');
                         }}
                         disabled={isLoading}
                     >
