@@ -8,7 +8,14 @@ const HospitalInformation = (props) => {
     const [data, setData] = useState();
     const { route } = props;
     const { id } = route.params;
-
+    const dataReviews = [
+        {
+            patient: "Bemor Farasat",
+            stars: 4,
+            date: "14 aprel",
+            text: `Buyerga kelishin meni omadim bo'gan aksholda haliham do'vdirab yurgan bo'lardim shuning uchun kelishilarni tavsiya qilaman`
+        },
+    ]
     useEffect(() => {
         HospitalTotalApi.getHospitalById(id)
             .then(res => {
@@ -51,12 +58,12 @@ const HospitalInformation = (props) => {
                 </View>
                 <View style={styles.comment}>
                     <View style={styles.commentHeaderTexts}>
-                        <Text style={styles.commentHeaderTextsText}>3 ta sharh</Text>
+                        <Text style={styles.commentHeaderTextsText}>1 ta sharh</Text>
                         <Text style={styles.commentHeaderTextsTextAll}>barcha</Text>
                     </View>
                 </View>
                 <ScrollView style={{ width: "100%", flexDirection: 'row' }} horizontal={true}>
-                    <DoctorReviews />
+                    <DoctorReviews state={{ dataReviews: dataReviews }} />
                 </ScrollView>
             </View>
         </ScrollView>
@@ -118,7 +125,7 @@ const styles = StyleSheet.create({
     info: {
         width: '100%',
         marginTop: 20,
-        // alignItems: 'left',
+        alignItems: 'left',
     },
     infoText: {
         fontSize: 20,

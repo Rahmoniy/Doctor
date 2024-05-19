@@ -1,15 +1,29 @@
-// DownloadInformation
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Platform, Linking } from 'react-native';
 
 const DownloadInformation = () => {
-
-
-
     const handleButtonClick = async () => {
-        console.log('salom');
-    };
+        try {
+            // Rasimni telefonga yuklash
+            const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIniehREDdhdIbof6kEO2oNljB1Ln5U2JsFFeLuJX7QQ&s';
 
+            // Platform ma'lumoti bilan rasimni telefonga yuklash yo'lini aniqlash
+            const downloadUrl = Platform.select({
+                ios: `sms:&body=${imageUrl}`, // iOS uchun SMS orqali yuklash
+                android: imageUrl, // Android uchun odatiy URL orqali yuklash
+            });
+
+            // Rasimni yuklab olish funksiyasi
+            const downloadImage = () => {
+                Linking.openURL(downloadUrl);
+            };
+
+            // Rasimni yuklab olish
+            downloadImage();
+        } catch (error) {
+            console.error('Xato:', error);
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -34,30 +48,8 @@ const DownloadInformation = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.DownloadInformation}>
-                <View style={styles.DownloadInformation_left}>
-                    <View style={styles.DownloadInformation_left_imguser}>
-                        <Image style={{ width: 65, height: 65, borderRadius: 50 }} source={require("../../assets/Drimg.png")} />
-                    </View>
-                    <View style={styles.DownloadInformation_left_star}>
-                        <Image style={{ width: 20, height: 20 }} source={require('../../assets/Star.png')} />
-                        <Text style={styles.ratingText}>4.8</Text>
-                    </View>
-                </View>
-                <View style={styles.DownloadInformation_right}>
-                    <Text style={styles.DownloadInformation_right_DoctorName}>Nargiza Marguvna</Text>
-                    <Text style={styles.DownloadInformation_right_DoctorInfo}>Jaroh</Text>
-
-                    <TouchableOpacity style={styles.DownloadInformation_right_button} onPress={handleButtonClick}>
-                        <Image style={{ width: 25, height: 25 }} source={{ uri: "https://cdn.iconscout.com/icon/free/png-256/free-download-get-send-arrow-take-30470.png" }} />
-                        <Text style={styles.DownloadInformation_right_buttonText}> yuklab olish</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
         </View>
-
     );
-
 };
 
 const styles = StyleSheet.create({
@@ -113,14 +105,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins',
         fontSize: 14,
         fontWeight: '500',
-        lineHeight: 15, // Bu o'rniga ma'lumotli qiymat qo'yish kerak
+        lineHeight: 15,
         letterSpacing: 0.02,
         textAlign: 'left',
         color: "rgba(8, 12, 47, 0.65)"
     },
     DownloadInformation_right: {
         width: 220,
-        // backgroundColor: "red",
         flexDirection: 'row',
         flexWrap: 'wrap',
         marginLeft: 15,
@@ -158,12 +149,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins',
         fontSize: 14,
         fontWeight: '500',
-        lineHeight: 35, // Bu o'rniga ma'lumotli qiymat qo'yish kerak
+        lineHeight: 35,
         letterSpacing: 0.02,
         textAlign: 'left',
         color: "#222E54"
     }
 });
-
 
 export default DownloadInformation;
