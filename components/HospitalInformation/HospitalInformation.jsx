@@ -3,7 +3,7 @@ import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, Linking } 
 import DoctorReviews from '../DoctorReviews/DoctorReviews';
 import HospitalTotalApi from '../../Api/HospitalTotal'
 
-const HospitalInformation = (props) => {
+const  HospitalInformation = (props) => {
     const [showMore, setShowMore] = useState(false);
     const [data, setData] = useState();
     const { route } = props;
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     info: {
         width: '100%',
         marginTop: 20,
-        alignItems: 'left',
+        // alignItems: 'left',
     },
     infoText: {
         fontSize: 20,

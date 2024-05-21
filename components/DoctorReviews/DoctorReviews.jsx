@@ -4,14 +4,14 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 const salara_1Reviews = (props) => {
     const [selectedReviewIndex, setSelectedReviewIndex] = useState(-1);
     const [showMore, setShowMore] = useState(false);
-    const reviews = props.state.dataReviews;
+    const reviews = props.state?.dataReviews;
 
     const handleShowMore = (index) => {
         setSelectedReviewIndex(index === selectedReviewIndex ? -1 : index);
     };
     return (
         <View style={{ flexDirection: 'row' }}>
-            {reviews.map((review, index) => (
+            {reviews?.map((review, index) => (
                 <View style={styles.salara_1Reviews} key={index}>
                     <Text style={styles.salara_1Reviews_thePatient}>{review.patient}</Text>
                     <View style={styles.salara_1Reviews_stars}>
