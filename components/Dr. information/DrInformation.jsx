@@ -22,9 +22,17 @@ const DrInformation = (props) => {
     const [table, setTable] = useState(null);
     const [visitHour, setVisitHour] = useState(null);
     const [data, setData] = useState();
-    const [doctorWeek, setDoctorWeek] = useState({})
+    const [DoctorWeek, setDoctorWeek] = useState({})
     const [dataWeekChange, setDataWeekChange] = useState()
     const [dataTime, setDataTime] = useState([])
+    const dataReviews = [
+        {
+            patient: "Soti buvi",
+            stars: 5,
+            date: "10 aprel",
+            text: `Bu doctor menga juda yordam berdi rahmat aytaman chunki bunday doctorni avval ko'rmagan edim shuning cuchun hursadman mayli ishilaga omad diyman hulas`
+        },
+    ]
 
     useEffect(() => {
         CardDoctorApi.getDoctorInfo(id)
@@ -81,9 +89,9 @@ const DrInformation = (props) => {
         }
         console.log(dataMeeting);
         if (table != null && visitHour != null) {
-            doctorWeek.data?.push(dataMeeting)
-            console.log("====>>>", doctorWeek);
-            Auth.UserInfoPut(selector, doctorWeek)
+            DoctorWeek.data.push(dataMeeting)
+            console.log("====>>>", DoctorWeek);
+            Auth.UserInfoPut(selector, DoctorWeek)
             workingApi()
         } else {
             Alert.alert('Error', 'Vohtni bergilang')
@@ -185,13 +193,13 @@ const DrInformation = (props) => {
                 <View style={styles.drInformation_comment}>
                     <View style={styles.constainer}>
                         <View style={styles.drInformation_comment_headertexts}>
-                            <Text style={styles.drInformation_comment_headertexts_text}>{data && data.Baholashlar} ta sharh</Text>
+                            <Text style={styles.drInformation_comment_headertexts_text}>1 ta sharh</Text>
                             <Text style={styles.drInformation_comment_headertexts_textAll}>barcha</Text>
                         </View>
                     </View>
                     <View>
                         <ScrollView style={{ width: "100%", flexDirection: 'row' }} horizontal={true}>
-                            <DoctorReviews />
+                            <DoctorReviews state={{ dataReviews: dataReviews }} />
                         </ScrollView>
                     </View>
                 </View>
@@ -344,7 +352,7 @@ const styles = StyleSheet.create({
     drInformation_Info: {
         width: '100%',
         marginTop: 20,
-        // alignItems: 'left',
+        alignItems: 'left',
     },
     drInformation_Info_text: {
         fontSize: 20,
@@ -497,40 +505,3 @@ const styles = StyleSheet.create({
 
 })
 export default DrInformation;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
