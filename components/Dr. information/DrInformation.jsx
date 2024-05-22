@@ -89,7 +89,7 @@ const DrInformation = (props) => {
         }
         console.log(dataMeeting);
         if (table != null && visitHour != null) {
-            DoctorWeek.data.push(dataMeeting)
+            DoctorWeek?.data?.push(dataMeeting)
             console.log("====>>>", DoctorWeek);
             Auth.UserInfoPut(selector, DoctorWeek)
             workingApi()
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     drInformation_Info: {
         width: '100%',
         marginTop: 20,
-        alignItems: 'left',
+        // alignItems: 'left',
     },
     drInformation_Info_text: {
         fontSize: 20,
